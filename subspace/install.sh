@@ -52,21 +52,21 @@ function get_vars {
 }
 
 function eof_docker_compose {
-  mkdir -p $HOME/subspace_docker/
-  sudo tee <<EOF >/dev/null $HOME/subspace_docker/docker-compose.yml
+  mkdir -p $HOME/subspace_docker1/
+  sudo tee <<EOF >/dev/null $HOME/subspace_docker1/docker-compose.yml
   version: "3.7"
   services:
     node:
-      image: ghcr.io/subspace/node:$RELEASE
+      image: ghcr.io/subspace1/node:$RELEASE
       volumes:
-        - node-data:/var/subspace:rw
+        - node-data:/var/subspace1:rw
       ports:
-        - "0.0.0.0:32333:30333"
-        - "0.0.0.0:32433:30433"
+        - "0.0.0.0:42333:30333"
+        - "0.0.0.0:42433:30433"
       restart: unless-stopped
       command: [
         "--chain", "$CHAIN",
-        "--base-path", "/var/subspace",
+        "--base-path", "/var/subspace1",
         "--execution", "wasm",
         "--blocks-pruning", "archive",
         "--state-pruning", "archive",
@@ -91,14 +91,14 @@ function eof_docker_compose {
     farmer:
       depends_on:
         - node
-      image: ghcr.io/subspace/farmer:$RELEASE
+      image: ghcr.io/subspace1/farmer:$RELEASE
       volumes:
-        - farmer-data:/var/subspace:rw
+        - farmer-data:/var/subspace1:rw
       ports:
-        - "0.0.0.0:32533:30533"
+        - "0.0.0.0:42533:30533"
       restart: unless-stopped
       command: [
-        "--base-path", "/var/subspace",
+        "--base-path", "/var/subspace1",
         "farm",
         "--disable-private-ips",
         "--node-rpc-url", "ws://node:9944",
@@ -113,7 +113,7 @@ EOF
 }
 
 function docker_compose_up {
-  docker-compose -f $HOME/subspace_docker/docker-compose.yml up -d
+  docker-compose -f $HOME/subspace_docker1/docker-compose.yml up -d
 }
 
 function echo_info {
