@@ -61,8 +61,8 @@ function eof_docker_compose {
       volumes:
         - node-data:/var/subspace1:rw
       ports:
-        - "0.0.0.0:36333:30333"
-        - "0.0.0.0:37433:30433"
+        - "0.0.0.0:42333:30333"
+        - "0.0.0.0:42433:30433"
       restart: unless-stopped
       command: [
         "--chain", "$CHAIN",
@@ -95,7 +95,7 @@ function eof_docker_compose {
       volumes:
         - farmer-data:/var/subspace1:rw
       ports:
-        - "0.0.0.0:32833:30533"
+        - "0.0.0.0:42533:30533"
       restart: unless-stopped
       command: [
         "--base-path", "/var/subspace1",
