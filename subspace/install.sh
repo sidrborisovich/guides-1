@@ -59,14 +59,14 @@ function eof_docker_compose {
     node:
       image: ghcr.io/subspace1/node:$RELEASE
       volumes:
-        - node-data:/var1/subspace:rw
+        - node-data:/var/subspace1:rw
       ports:
         - "0.0.0.0:42333:30333"
         - "0.0.0.0:42433:30433"
       restart: unless-stopped
       command: [
         "--chain", "$CHAIN",
-        "--base-path", "/var1/subspace",
+        "--base-path", "/var/subspace1",
         "--execution", "wasm",
         "--blocks-pruning", "archive",
         "--state-pruning", "archive",
@@ -93,12 +93,12 @@ function eof_docker_compose {
         - node
       image: ghcr.io/subspace1/farmer:$RELEASE
       volumes:
-        - farmer-data:/var1/subspace:rw
+        - farmer-data:/var/subspace1:rw
       ports:
         - "0.0.0.0:42533:30533"
       restart: unless-stopped
       command: [
-        "--base-path", "/var1/subspace",
+        "--base-path", "/var/subspace1",
         "farm",
         "--disable-private-ips",
         "--node-rpc-url", "ws://node:9944",
