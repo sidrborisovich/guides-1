@@ -101,7 +101,7 @@ function eof_docker_compose {
         "--base-path", "/var1/subspace",
         "farm",
         "--disable-private-ips",
-        "--node-rpc-url", "ws://node:9943",
+        "--node-rpc-url", "ws://node:9944",
         "--listen-on", "/ip4/0.0.0.0/tcp/30533",
         "--reward-address", "$WALLET_ADDRESS",
         "--plot-size", "100G"
